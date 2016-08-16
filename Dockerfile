@@ -1,7 +1,7 @@
 FROM resin/rpi-raspbian
 MAINTAINER Frank Sachsenheim <funkyfuture@riseup.net>
 
-ENV SYNCTHING_VERSION=0.14.3
+ENV SYNCTHING_VERSION=0.14.4
 
 RUN apt-get update \
  && apt-get install -y --no-install-recommends apache2-utils ca-certificates curl xmlstarlet \
