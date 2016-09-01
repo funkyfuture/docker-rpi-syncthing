@@ -27,31 +27,34 @@ docker pull funkyfuture/rpi-syncthing
 
 ```
 git clone https://github.com/funkyfuture/docker-rpi-syncthing
-docker build -t funkyfuture/rpi-syncthing .
+docker build -t funkyfuture/rpi-syncthing docker-rpi-syncthing
 ```
 
 ## Run
 
-Here's an example configuration that i suited to manage an instance with
+Here's an example configuration that is suited to manage an instance with
 [`docker-compose`](https://docs.docker.com/compose/):
 
-```
-client:
-  image: funkyfuture/rpi-syncthing
-  restart: always
-  net: host
-  volumes:
-    - /mnt/syncthing/config:/syncthing/config
-    - /mnt/syncthing/data:/syncthing/data
-  environment:
-    - GUI_USERNAME=ziggy
-    - GUI_PASSWORD_PLAIN=stardust
+```yaml
+version: '2'
+
+services:
+  client:
+    image: funkyfuture/rpi-syncthing
+    restart: always
+    network_mode: host
+    volumes:
+      - ./config:/syncthing/config
+      - ./data:/syncthing/data
+    environment:
+      - GUI_USERNAME=ziggy
+      - GUI_PASSWORD_PLAIN=stardust
 ```
 
 For those eager to quickly test this image:
 
 ```
-docker run --network=host funkyfuture/rpi-syncthing
+docker run --rm --network=host funkyfuture/rpi-syncthing
 ```
 
 ## Configuration
