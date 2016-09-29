@@ -1,6 +1,6 @@
 # RPi-Syncthing
 
-This is a [Docker](https://www.docker.com) image targetting
+This is a [Docker](https://www.docker.com) image targeting
 [Raspberry Pi](https://www.raspberrypi.org) hosts containing
 [Syncthing](https://syncthing.net) which describes itself:
 
@@ -8,6 +8,9 @@ This is a [Docker](https://www.docker.com) image targetting
 > trustworthy and decentralized. Your data is your data alone and you deserve
 > to choose where it is stored, if it is shared with some third party and how
 > it's transmitted over the Internet.
+
+[What's the current `latest` version?](https://github.com/funkyfuture/docker-rpi-syncthing/blob/master/Dockerfile#L4)
+
 
 It is supposed supposed to use the host's network stack, which is a *potential
 security risk*.
@@ -77,9 +80,9 @@ To further customize the configuration you can provide your own
 resp. their defaults above will be applied on it (but this is going to be more
 sensible at some point).
 
-You may also add a `/pre-launch.sh` that will be run after the configuration
-values have been applied. For convenient xml-manipulation you can use
-`xmlstarlet`, see `start.sh` for examples and a wrapper function.
+You may also add a `/pre-launch.sh` that will be run (by `source`ing) after
+the configuration values have been applied. For convenient xml-manipulation
+you can use `xmlstarlet`, see `start.sh` for examples and a wrapper function.
 
 ## Resources
 
