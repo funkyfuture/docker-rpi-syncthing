@@ -1,7 +1,10 @@
 FROM resin/rpi-raspbian
 MAINTAINER Frank Sachsenheim <funkyfuture@riseup.net>
 
-ENV SYNCTHING_VERSION=0.14.12
+CMD /start.sh
+ADD start.sh /
+
+ENV SYNCTHING_VERSION=0.14.13
 
 RUN apt-get update \
  && apt-get install -y --no-install-recommends apache2-utils apt-transport-https ca-certificates curl xmlstarlet \
@@ -15,6 +18,3 @@ RUN apt-get update \
 
 VOLUME /syncthing/config
 VOLUME /syncthing/data
-
-ADD start.sh /
-CMD /start.sh
