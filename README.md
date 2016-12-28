@@ -44,7 +44,7 @@ version: '2'
 services:
   client:
     image: funkyfuture/rpi-syncthing
-    restart: always
+    restart: unless-stopped
     network_mode: host
     volumes:
       - ./config:/syncthing/config

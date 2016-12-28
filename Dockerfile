@@ -4,7 +4,7 @@ MAINTAINER Frank Sachsenheim <funkyfuture@riseup.net>
 CMD /start.sh
 ADD start.sh /
 
-ENV SYNCTHING_VERSION=0.14.16
+ENV SYNCTHING_VERSION=0.14.17
 
 RUN apt-get update \
  && apt-get install -y --no-install-recommends apache2-utils apt-transport-https ca-certificates curl xmlstarlet \
