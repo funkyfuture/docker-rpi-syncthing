@@ -9,7 +9,7 @@ This is a [Docker](https://www.docker.com) image targeting
 > to choose where it is stored, if it is shared with some third party and how
 > it's transmitted over the Internet.
 
-[What's the current `latest` version?](https://github.com/funkyfuture/docker-rpi-syncthing/blob/master/Dockerfile#L4)
+[What's the current `latest` version?](https://github.com/funkyfuture/docker-rpi-syncthing/blob/master/Dockerfile#L9)
 
 
 It is supposed supposed to use the host's network stack, which is a *potential
