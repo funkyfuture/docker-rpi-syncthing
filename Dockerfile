@@ -1,20 +1,19 @@
-FROM resin/rpi-raspbian
+FROM armhf/alpine:edge
+# TODO 3.5
 MAINTAINER Frank Sachsenheim <funkyfuture@riseup.net>
 
+VOLUME /syncthing/config /syncthing/data
 CMD /start.sh
 ADD start.sh /
 
-ENV SYNCTHING_VERSION=0.14.17
+ENV SYNCTHING_VERSION=0.14.18
 
-RUN apt-get update \
- && apt-get install -y --no-install-recommends apache2-utils apt-transport-https ca-certificates curl xmlstarlet \
- && curl -s https://syncthing.net/release-key.txt | apt-key add - \
- && echo "deb http://apt.syncthing.net/ syncthing release" > /etc/apt/sources.list.d/syncthing-release.list \
- && apt-get update -o Dir::Etc::sourcelist="sources.list.d/syncthing-release.list" \
- && apt-get install -y syncthing=$SYNCTHING_VERSION \
- && apt-get -y purge --auto-remove apt-transport-https ca-certificates curl \
- && apt-get clean \
- && rm -rf /var/lib/apt/lists/*
-
-VOLUME /syncthing/config
-VOLUME /syncthing/data
+RUN apk upgrade --no-cache \
+ && apk add --no-cache apr apr-util ca-certificates xmlstarlet \
+ && apk add --no-cache --virtual .build-deps apache2-utils curl tar \
+ && cd /usr/bin \
+ && cp htpasswd /tmp \
+ && url="https://github.com/syncthing/syncthing/releases/download/v${SYNCTHING_VERSION}/syncthing-linux-arm-v${SYNCTHING_VERSION}.tar.gz" \
+ && curl -L $url | tar xz --wildcards --strip-components 1 --exclude "etc/*" "*/syncthing" \
+ && apk del .build-deps \
+ && mv /tmp/htpasswd .

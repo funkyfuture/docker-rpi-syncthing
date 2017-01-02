@@ -1,16 +1,16 @@
-#!/bin/bash
+#!/bin/sh
 
 set -e
 
-function config_count () {
+config_count () {
     return $(xmlstarlet sel -t -v "count(/configuration/$1)" $CONFIG_FILE)
 }
 
-function config_del () {
+config_del () {
     xmlstarlet ed -O -L -d /configuration/$1 $CONFIG_FILE
 }
 
-function config_set () {
+config_set () {
     if [ -z $2 ]; then
         config_del $1
         return
