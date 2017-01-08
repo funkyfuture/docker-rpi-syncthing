@@ -62,6 +62,10 @@ docker run --rm --network=host funkyfuture/rpi-syncthing
 
 ## Configuration
 
+The numeric user and group id of the user running the client are set with the
+environment variables `UID` and `GID`. Both default to `1000`. This affects the
+ownership of the stored data in `/syncthing` and `$CONFIG_DIR`.
+
 You can pass these environment variables to configure the client:
 
 - `CONFIG_DIR` (default: `/syncthing/config`)
@@ -83,6 +87,9 @@ sensible at some point).
 You may also add a `/pre-launch.sh` that will be run (by `source`ing) after
 the configuration values have been applied. For convenient xml-manipulation
 you can use `xmlstarlet`, see `start.sh` for examples and a wrapper function.
+The user context at this point is still `root`, the designated user context
+to run `syncthing` is available as `$UID`, `$GID`, `$USER_NAME` and
+`$GROUP_NAME`.
 
 ## Resources
 

@@ -37,6 +37,8 @@ config_set () {
 # environment defaults
 : ${CONFIG_DIR:='/syncthing/config'}
 CONFIG_FILE=$CONFIG_DIR/config.xml
+: ${UID:='1000'}
+: ${GID:='1000'}
 : ${GUI_ADDRESS:='[::]:8384'}
 : ${GUI_ENABLED:='true'}
 : ${GUI_TLS:='false'}
@@ -47,6 +49,16 @@ if [ -z "$GUI_PASSWORD_BCRYPT" ] && [ -n "$GUI_PASSWORD_PLAIN" ]; then
     GUI_PASSWORD_BCRYPT=$(htpasswd -bnB -C12 foo ${GUI_PASSWORD_PLAIN} | cut -f2 -d:)
 fi
 : ${GUI_PASSWORD_BCRYPT:=''}
+
+# create user and group if necessary
+if [ ! $(getent group $GID) ]; then
+    addgroup -g $GID syncthing
+fi
+GROUP_NAME=$(getent group $GID | cut -f 1 -d ":")
+if [ ! $(getent passwd $UID) ]; then
+    adduser -D -H -u $UID -G $GROUP_NAME syncthing
+fi
+USER_NAME=$(getent passwd $UID | cut -f 1 -d ":")
 
 # generate initial config if necessary
 if [ ! -f $CONFIG_FILE ]; then
@@ -75,14 +87,18 @@ fi
 unset GUI_PASSWORD_PLAIN
 unset GUI_PASSWORD_BCRYPT
 
+# execute additional script
 if [ -f "/pre-launch.sh" ]; then
     source /pre-launch.sh
 fi
+
+# change ownership to executing user
+chown -R $UID:$GID /syncthing $CONFIG_DIR
 
 syncthing -home=$CONFIG_DIR -paths
 echo "======== config.xml ========"
 cat $CONFIG_FILE
 echo "============================"
-exec syncthing -home=$CONFIG_DIR
+su-exec $USER_NAME syncthing -home=$CONFIG_DIR
 
 exit 1
