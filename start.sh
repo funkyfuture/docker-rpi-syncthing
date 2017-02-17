@@ -44,6 +44,8 @@ CONFIG_FILE=$CONFIG_DIR/config.xml
 : ${GUI_TLS:='false'}
 : ${GUI_USERNAME:=''}
 : ${GUI_PASSWORD_PLAIN:=''}
+: ${CONFIG_OVERWRITE:=true}
+
 if [ -z "$GUI_PASSWORD_BCRYPT" ] && [ -n "$GUI_PASSWORD_PLAIN" ]; then
     echo "Calculating password hash..."
     GUI_PASSWORD_BCRYPT=$(htpasswd -bnB -C12 foo ${GUI_PASSWORD_PLAIN} | cut -f2 -d:)
@@ -65,23 +67,27 @@ if [ ! -f $CONFIG_FILE ]; then
     syncthing -generate=$CONFIG_DIR
     config_del "/configuration/folder"
     config_set "options/startBrowser" "false"
+	CONFIG_OVERWRITE=true
 fi
 
 # update config.xml according to environment variables
-config_set "gui/address" $GUI_ADDRESS
-config_set "gui/@enabled" $GUI_ENABLED
-config_set "gui/@tls" $GUI_TLS
-config_set "gui/user" $GUI_USERNAME
-config_set "gui/password" $GUI_PASSWORD_BCRYPT
+if $CONFIG_OVERWRITE ; then
+	echo "Configuration overwriting.."
+	config_set "gui/address" $GUI_ADDRESS
+	config_set "gui/@enabled" $GUI_ENABLED
+	config_set "gui/@tls" $GUI_TLS
+	config_set "gui/user" $GUI_USERNAME
+	config_set "gui/password" $GUI_PASSWORD_BCRYPT
 
-if config_count "gui/user"; then
-    config_set "gui/insecureAdminAccess" "true"
-else
-    config_del "gui/insecureAdminAccess"
-fi
+	if config_count "gui/user"; then
+		config_set "gui/insecureAdminAccess" "true"
+	else
+		config_del "gui/insecureAdminAccess"
+	fi
 
-if [ -n "$GUI_APIKEY" ]; then
-    config_set "gui/apikey" $GUI_APIKEY
+	if [ -n "$GUI_APIKEY" ]; then
+		config_set "gui/apikey" $GUI_APIKEY
+	fi
 fi
 
 unset GUI_PASSWORD_PLAIN
