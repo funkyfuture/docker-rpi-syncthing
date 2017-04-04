@@ -5,7 +5,7 @@ VOLUME /syncthing/config /syncthing/data
 CMD /start.sh
 ADD start.sh /
 
-ENV SYNCTHING_VERSION=0.14.25
+ENV SYNCTHING_VERSION=0.14.26
 
 RUN apk upgrade --no-cache \
  && apk add --no-cache apr apr-util ca-certificates su-exec xmlstarlet \
