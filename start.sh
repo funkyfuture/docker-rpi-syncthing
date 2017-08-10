@@ -67,6 +67,10 @@ if [ ! -f $CONFIG_FILE ]; then
     config_set "options/startBrowser" "false"
 fi
 
+# ensure the default folder points to the data volume
+
+config_set "options/defaultFolderPath" "/syncthing/data"
+
 # update config.xml according to environment variables
 config_set "gui/address" $GUI_ADDRESS
 config_set "gui/@enabled" $GUI_ENABLED
