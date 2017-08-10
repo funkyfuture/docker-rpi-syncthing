@@ -9,11 +9,11 @@ This is a [Docker](https://www.docker.com) image targeting
 > to choose where it is stored, if it is shared with some third party and how
 > it's transmitted over the Internet.
 
-[What's the current `latest` version?](https://github.com/funkyfuture/docker-rpi-syncthing/blob/master/Dockerfile#L8)
+[What's the current `latest` version?](https://github.com/funkyfuture/docker-rpi-syncthing/blob/master/Dockerfile#L9)
 
 
-It is supposed supposed to use the host's network stack, which is a *potential
-security risk*.
+It is supposed to use the host's network stack, which is a **potential security 
+risk**.
 
 For a suitable host system check out [Hypriot OS](http://blog.hypriot.com/downloads/)!
 
@@ -22,16 +22,12 @@ Contributions are welcome.
 
 ## Pull
 
-```
-docker pull funkyfuture/rpi-syncthing
-```
+    docker pull funkyfuture/rpi-syncthing
 
 ## Build
 
-```
-git clone https://github.com/funkyfuture/docker-rpi-syncthing
-docker build -t funkyfuture/rpi-syncthing docker-rpi-syncthing
-```
+    git clone https://github.com/funkyfuture/docker-rpi-syncthing
+    docker build -t funkyfuture/rpi-syncthing docker-rpi-syncthing
 
 ## Run
 
@@ -56,9 +52,7 @@ services:
 
 For those eager to quickly test this image:
 
-```
-docker run --rm --network=host funkyfuture/rpi-syncthing
-```
+    docker run --rm --network=host funkyfuture/rpi-syncthing
 
 ## Configuration
 
@@ -70,12 +64,12 @@ You can pass these environment variables to configure the client:
 
 - `CONFIG_DIR` (default: `/syncthing/config`)
 - `GUI_ADDRESS` (default: `[::]:8384`)
+- `GUI_APIKEY`
 - `GUI_ENABLED` (default: `true`)
-- `GUI_TLS` (default: `false`)
-- `GUI_USERNAME`
 - `GUI_PASSWORD_PLAIN`
 - `GUI_PASSWORD_BCRYPT` (takes precedence over `..._PLAIN`)
-- `GUI_APIKEY`
+- `GUI_TLS` (default: `false`)
+- `GUI_USERNAME`
 
 ## Further customization
 
