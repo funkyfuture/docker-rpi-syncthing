@@ -9,10 +9,10 @@ This is a [Docker](https://www.docker.com) image targeting
 > to choose where it is stored, if it is shared with some third party and how
 > it's transmitted over the Internet.
 
-[What's the current `latest` version?](https://github.com/funkyfuture/docker-rpi-syncthing/blob/master/Dockerfile#L9)
+[What's the current `latest` version?](https://github.com/funkyfuture/docker-rpi-syncthing/blob/master/Dockerfile#L8)
 
 
-It is supposed to use the host's network stack, which is a **potential security 
+It is supposed to use the host's network stack, which is a **potential security
 risk**.
 
 For a suitable host system check out [Hypriot OS](http://blog.hypriot.com/downloads/)!
