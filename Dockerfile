@@ -8,7 +8,7 @@ ADD start.sh /
 ENV SYNCTHING_VERSION=0.14.49
 
 RUN apk upgrade --no-cache \
- && apk add --no-cache apr apr-util ca-certificates su-exec xmlstarlet \
+ && apk add --no-cache apr apr-util ca-certificates su-exec tzdata xmlstarlet \
  && apk add --no-cache --virtual .build-deps apache2-utils curl tar \
  && cd /usr/bin \
  && cp htpasswd /tmp \
