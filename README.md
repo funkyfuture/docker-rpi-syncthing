@@ -15,8 +15,6 @@ This is a [Docker](https://www.docker.com) image targeting
 It is supposed to use the host's network stack, which is a **potential security
 risk**.
 
-For a suitable host system check out [Hypriot OS](http://blog.hypriot.com/downloads/)!
-
 Contributions are welcome.
 
 
