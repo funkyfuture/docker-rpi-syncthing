@@ -61,6 +61,7 @@ ownership of the stored data in `/syncthing` and `$CONFIG_DIR`.
 You can pass these environment variables to configure the client:
 
 - `CONFIG_DIR` (default: `/syncthing/config`)
+- `DEBUG` can be set to `on`
 - `GUI_ADDRESS` (default: `[::]:8384`)
 - `GUI_APIKEY`
 - `GUI_ENABLED` (default: `true`)

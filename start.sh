@@ -1,6 +1,8 @@
 #!/bin/sh
 
 set -e
+[ ${DEBUG} = "on" ] && set -x && VERBOSE="-verbose"
+
 
 config_count () {
     return $(xmlstarlet sel -t -v "count(/configuration/$1)" $CONFIG_FILE)
@@ -68,8 +70,10 @@ if [ ! -f $CONFIG_FILE ]; then
 fi
 
 # ensure the default folder points to the data volume
-
 config_set "options/defaultFolderPath" "/syncthing/data"
+
+# disable automated upgrades
+config_set "options/autoUpgradeIntervalH" "0"
 
 # update config.xml according to environment variables
 config_set "gui/address" $GUI_ADDRESS
@@ -103,6 +107,7 @@ syncthing -home=$CONFIG_DIR -paths
 echo "======== config.xml ========"
 cat $CONFIG_FILE
 echo "============================"
-su-exec $USER_NAME syncthing -home=$CONFIG_DIR
+
+su-exec $USER_NAME syncthing -home=$CONFIG_DIR $VERBOSE
 
 exit 1
