@@ -12,9 +12,6 @@ This is a [Docker](https://www.docker.com) image targeting
 [What's the current `latest` version?](https://github.com/funkyfuture/docker-rpi-syncthing/blob/master/Dockerfile#L8)
 
 
-It is supposed to use the host's network stack, which is a **potential security
-risk**.
-
 Contributions are welcome.
 
 
@@ -25,7 +22,7 @@ Contributions are welcome.
 ## Build
 
     git clone https://github.com/funkyfuture/docker-rpi-syncthing
-    docker build -t funkyfuture/rpi-syncthing docker-rpi-syncthing
+    make -C docker-rpi-syncthing
 
 ## Run
 
@@ -39,7 +36,10 @@ services:
   client:
     image: funkyfuture/rpi-syncthing
     restart: unless-stopped
-    network_mode: host
+    ports:
+      - "8384:8384"
+      - "22000:22000"
+      - "21027:21027/udp"
     volumes:
       - ./config:/syncthing/config
       - ./data:/syncthing/data
